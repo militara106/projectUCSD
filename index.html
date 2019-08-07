@@ -1,13 +1,92 @@
 <!DOCTYPE html>
-
-<html lang="en-us">
+<html lang="en">
 
 <head>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="assets/reset.css">
+    <!-- Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bulma Stylesheet-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>"Party Dashboard"</title>
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 
-<body>
-
+<body>  
+    <!--Navbar-->
+    <nav class="navbar navbar-light navbar-1 white">
+    
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#">Party Dashboard</a>
+    
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15"
+        aria-controls="navbarSupportedContent15" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent15">
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Instagram</a>
+          </li>
+        </ul>
+        <!-- Links -->
+      </div>
+      <!-- Collapsible content -->
+    </nav>
+    <!--/.Navbar-->
+    <!-- MAIN CONTAINER STARTS HERE-->
+<div class="main-container">
+    <!-- Dark Theme Hero Section Container Starts Here-->
+                <section class="hero is-large is-dark is-bold text-center">
+                    <div class="hero-body">
+                      <div class="container">
+                        <h1 class="title">
+                        Song Title
+                        </h1>
+                        <h2 class="subtitle">
+                          By Author
+                        </h2>
+                    </div>
+                      </div>
+                  </section>
+                  <!-- Modal Button is here -->
+                  <div class="text-center">
+                  <button class="button is-light modal-button" data-target="#myModal" id="modal-button" aria-haspopup="true">Song Lyrics</button>
+                </div>
+                  <!-- Modal is Here-->
+                  <div class="modal" id="myModal">
+                    <div class="modal-background"></div>
+                    <div class="modal-content">
+                      <div class="box">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.       
+                           </div>
+                    </div>
+                    <!--Modal is close button-->
+                    <button class="modal-close is-large" aria-label="close">
+                     </button>
+                  </div>
+                </div>
+                <!--/End of Main Container -->
+                <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+                <!-- JavaScript -->
+                <script type="text/javascript" src="index.js"></script>
 </body>
+
 
 </html>
