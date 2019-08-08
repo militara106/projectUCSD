@@ -1,184 +1,213 @@
-window.onload = function () {
+ $(document).ready(function () {
 
-    // Canvas Variables
-    var canvas = document.getElementById("visualizer");
-    var canvasContext = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+     // Button Variables
+     var buttonContainer = $("<div>");
+     buttonContainer.css("text-align", "center");
+     buttonContainer.css("border", ".1rem solid red");
+     buttonContainer.css("border-radius", "5px");
+     buttonContainer.css("margin", "0 auto");
+     buttonContainer.css("display", "table");
+     var bar = $("<span>").attr("id", "bar").text("-BAR").css("color", "red");
+     var circle = $("<span>").attr("id", "circle").text("-CIRCLE-").css("color", "red");
+     var round = $("<span>").attr("id", "round").text("SPEAKER-").css("color", "red");
+     buttonContainer.append(bar, circle, round);
+     $("#visualizerContainer").append(buttonContainer);
 
-    // Audio Variables
-    var audio = document.getElementById("audio");
-    audio.crossOrigin = "anonymous";
-    audio.src = "bensound-summer.mp3";
-    audio.load();
-    var audioContext = new AudioContext();
-    var src = audioContext.createMediaElementSource(audio);
-    console.log("Audio: " + audio + " Src: " + src);
+     // Canvas Variables
+     var canvas = $("<canvas id='visualizer'><canvas>");
+     $("#visualizerContainer").append(canvas);
+     canvas = document.getElementById("visualizer");
+     var canvasContext = canvas.getContext("2d");
+     canvas.width = document.getElementById("visualizerContainer").offsetWidth;
+     canvas.height = document.getElementById("visualizerContainer").offsetHeight;
+     console.log("Width: " + canvas.width + " Height: " + canvas.height);
+     fillStyle = document.getElementById("visualizerContainer").style.background;
 
-    // Analyzer Variables
-    var analyzer = audioContext.createAnalyser();
-    var freqArray = new Uint8Array(analyzer.frequencyBinCount);
-    src.connect(analyzer);
-    analyzer.connect(audioContext.destination);
-    analyzer.fftSize = 2048;
+     // Audio Variables
+     var audio = document.getElementById("audio");
+     audio.crossOrigin = "anonymous";
+     audio.load();
+     var audioContext = new AudioContext();
+     var src = audioContext.createMediaElementSource(audio);
+     console.log("Audio: " + audio.src);
 
-    // Visualizer Variables
-    var barHeight = 5;
-    var barWidth = (canvas.width / analyzer.frequencyBinCount) * 2.5;
-    var x, y, x2, y2;
+     // Analyzer Variables
+     var id;
+     var analyzer = audioContext.createAnalyser();
+     var freqArray = new Uint8Array(analyzer.frequencyBinCount);
+     src.connect(analyzer);
+     analyzer.connect(audioContext.destination);
+     analyzer.fftSize = 2048;
 
-    // Choose Bar Visualizer
-    $("#bar").on("click", function () {
-        clearCanvas();
-        renderBarVisualizer();
-    });
+     // Visualizer Variables
+     var barHeight = 5;
+     var barWidth = (canvas.width / analyzer.frequencyBinCount) * 2.5;
+     var x, y, x2, y2;
 
-    $("#circle").on("click", function () {
-        clearCanvas();
-        renderCircleVisualizer();
-    });
+     // Create Bar Default
+     clearCanvas();
+     renderBarVisualizer();
 
-    $("#round").on("click", function () {
-        clearCanvas();
-        renderRoundVisualizer();
-    });
+     // Choose Bar Visualizer
+     $("#bar").on("click", function () {
+         clearCanvas();
+         renderBarVisualizer();
+     });
 
-    //Bar Visualizer
-    function renderBarVisualizer() {
+     $("#circle").on("click", function () {
+         clearCanvas();
+         renderCircleVisualizer();
+     });
 
-        requestAnimationFrame(renderBarVisualizer);
-        analyzer.getByteFrequencyData(freqArray);
+     $("#round").on("click", function () {
+         clearCanvas();
+         renderRoundVisualizer();
+     });
 
-        canvasContext.fillStyle = "black";
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+     //Bar Visualizer
+     function renderBarVisualizer() {
 
-        x = canvas.width / 2;
-        x2 = x;
+         id = requestAnimationFrame(renderBarVisualizer);
+         analyzer.getByteFrequencyData(freqArray);
 
-        for (var i = 0; i < analyzer.frequencyBinCount; i++) {
-            barHeight = freqArray[i] + 5;
+         canvasContext.fillStyle = fillStyle;
+         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
-            var r = barHeight + (25 * (i / analyzer.frequencyBinCount));
-            var g = 250 * (i / analyzer.frequencyBinCount);
-            var b = 50;
+         x = canvas.width / 2;
+         x2 = x;
 
-            canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-            canvasContext.fillRect(x, (canvas.height - barHeight * 2) / 2, barWidth, barHeight * 2);
-            canvasContext.fillRect(x2, (canvas.height - barHeight * 2) / 2, barWidth, barHeight * 2);
+         for (var i = 0; i < analyzer.frequencyBinCount; i++) {
+             barHeight = freqArray[i] + 5;
 
-            x += barWidth + 1;
-            x2 -= barWidth + 1;
-        }
+             var r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             var g = 250 * (i / analyzer.frequencyBinCount);
+             var b = 50;
 
-    }
+             canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+             canvasContext.fillRect(x, (canvas.height - barHeight * 2) / 2, barWidth, barHeight * 2);
+             canvasContext.fillRect(x2, (canvas.height - barHeight * 2) / 2, barWidth, barHeight * 2);
 
-    //Circle Visualizer
-    function renderCircleVisualizer() {
+             x += barWidth + 1;
+             x2 -= barWidth + 1;
+         }
+         console.log("Bar Visualizer Created");
 
-        requestAnimationFrame(renderCircleVisualizer);
+     }
 
-        var center_x = canvas.width / 2;
-        var center_y = canvas.height / 2;
-        var radius = 400;
-        var bars = 200;
-        var rads;
+     //Circle Visualizer
+     function renderCircleVisualizer() {
 
-        canvasContext.fillStyle = "black";
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        analyzer.getByteFrequencyData(freqArray);
+         id = requestAnimationFrame(renderCircleVisualizer);
+         analyzer.getByteFrequencyData(freqArray);
 
-        for (var i = 0; i < bars; i++) {
-            rads = Math.PI * 2 / bars;
-            barHeight = freqArray[i]/2+5;
+         var center_x = canvas.width / 2;
+         var center_y = canvas.height / 2;
+         var radius = 400;
+         var bars = 200;
+         var rads;
 
-            x = center_x + Math.cos(rads * i) * (radius - barHeight);
-            y = center_y + Math.sin(rads * i) * (radius - barHeight);
-            x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
-            y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
-
-            r = barHeight + (25 * (i / analyzer.frequencyBinCount));
-            g = 250 * (i / analyzer.frequencyBinCount);
-            b = 50;
-
-            canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
-            canvasContext.lineWidth = barWidth;
-            canvasContext.beginPath();
-            canvasContext.moveTo(x, y);
-            canvasContext.lineTo(x2, y2);
-            canvasContext.stroke();
-
-        }
-
-        bars=bars*2;
-        for (var i = 0; i < bars; i++) {
-            radius = 800
-            rads = Math.PI * 2 / bars;
-            barHeight = freqArray[i];
-
-            x = center_x + Math.cos(rads * i) * (radius - barHeight);
-            y = center_y + Math.sin(rads * i) * (radius - barHeight);
-            x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
-            y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
-
-            r = barHeight + (25 * (i / analyzer.frequencyBinCount));
-            g = 250 * (i / analyzer.frequencyBinCount);
-            b = 50;
-
-            canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
-            canvasContext.lineWidth = barWidth;
-            canvasContext.beginPath();
-            canvasContext.moveTo(x, y);
-            canvasContext.lineTo(x2, y2);
-            canvasContext.stroke();
-
-        }
-    }
-
-    //Round Visualizer
-    function renderRoundVisualizer() {
-
-        requestAnimationFrame(renderRoundVisualizer);
-
-        var center_x = canvas.width / 2;
-        var center_y = canvas.height / 2;
-        var radius = 1;
-        var circles = 50;
-        var rads;
-
-        canvasContext.fillStyle = "black";
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.beginPath();
-        canvasContext.arc(center_x, center_y, radius, 0, 2 * Math.PI);
-        canvasContext.stroke();
-        analyzer.getByteFrequencyData(freqArray);
-
-        for (var i = 0; i < circles; i++) {
-            rads = Math.PI * 2 / circles;
-            barHeight = freqArray[i];
-            radius = freqArray[i];
-
-            r = barHeight + (25 * (i / analyzer.frequencyBinCount));
-            g = 250 * (i / analyzer.frequencyBinCount);
-            b = 50;
-
-            canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
-            canvasContext.lineWidth = barWidth;
-            canvasContext.beginPath();
-            canvasContext.arc(center_x, center_y, radius+i*20, i, 2 * Math.PI-i);
-            canvasContext.stroke();
+         canvasContext.fillStyle = fillStyle;
+         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
 
-        }
-    }
+         for (var i = 0; i < bars; i++) {
+             rads = Math.PI * 2 / bars;
+             barHeight = freqArray[i] / 2 + 5;
 
-    // Clear Canvas for new visualizer
-    function clearCanvas() {
-        $('#visualizer').remove()
-        $('body').append('<canvas id = "visualizer"></canvas>')
+             x = center_x + Math.cos(rads * i) * (radius - barHeight);
+             y = center_y + Math.sin(rads * i) * (radius - barHeight);
+             x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
+             y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
 
-        canvas = document.getElementById("visualizer");
-        canvasContext = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-}
+             r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             g = 250 * (i / analyzer.frequencyBinCount);
+             b = 50;
+
+             canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
+             canvasContext.lineWidth = barWidth;
+             canvasContext.beginPath();
+             canvasContext.moveTo(x, y);
+             canvasContext.lineTo(x2, y2);
+             canvasContext.stroke();
+
+         }
+
+         bars = bars * 2;
+         for (var i = 0; i < bars; i++) {
+             radius = 800
+             rads = Math.PI * 2 / bars;
+             barHeight = freqArray[i];
+
+             x = center_x + Math.cos(rads * i) * (radius - barHeight);
+             y = center_y + Math.sin(rads * i) * (radius - barHeight);
+             x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
+             y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
+
+             r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             g = 250 * (i / analyzer.frequencyBinCount);
+             b = 50;
+
+             canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
+             canvasContext.lineWidth = barWidth;
+             canvasContext.beginPath();
+             canvasContext.moveTo(x, y);
+             canvasContext.lineTo(x2, y2);
+             canvasContext.stroke();
+
+         }
+
+         console.log("Circle Visualizer Created");
+     }
+
+     //Round Visualizer
+     function renderRoundVisualizer() {
+
+         id = requestAnimationFrame(renderRoundVisualizer);
+         analyzer.getByteFrequencyData(freqArray);
+
+         var center_x = canvas.width / 2;
+         var center_y = canvas.height / 2;
+         var radius = 1;
+         var circles = 50;
+         var rads;
+
+         canvasContext.fillStyle = fillStyle;
+         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+         canvasContext.beginPath();
+         canvasContext.arc(center_x, center_y, radius, 0, 2 * Math.PI);
+         canvasContext.stroke();
+
+         for (var i = 0; i < circles; i++) {
+             rads = Math.PI * 2 / circles;
+             barHeight = freqArray[i];
+             radius = freqArray[i];
+
+             r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             g = 250 * (i / analyzer.frequencyBinCount);
+             b = 50;
+
+             canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
+             canvasContext.lineWidth = barWidth;
+             canvasContext.beginPath();
+             canvasContext.arc(center_x, center_y, radius + i * 20, i, 2 * Math.PI - i);
+             canvasContext.stroke();
+
+
+         }
+         console.log("Round Visualizer Created");
+     }
+
+     // Clear Canvas for new visualizer
+     function clearCanvas() {
+          $("#visualizer").remove()
+          $("#visualizerContainer").append('<canvas id = "visualizer"></canvas>')
+
+          canvas = document.getElementById("visualizer");
+          canvasContext = canvas.getContext("2d");
+          canvas.width = document.getElementById("visualizerContainer").offsetWidth;
+          canvas.height = document.getElementById("visualizerContainer").offsetHeight;
+
+         cancelAnimationFrame(id);
+         console.log("Canvas Cleared");
+     }
+ });
