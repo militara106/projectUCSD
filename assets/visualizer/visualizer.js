@@ -20,6 +20,8 @@
      var canvasContext = canvas.getContext("2d");
      canvas.width = document.getElementById("visualizerContainer").offsetWidth;
      canvas.height = document.getElementById("visualizerContainer").offsetHeight;
+     var height = canvas.height;
+     var width = canvas.width;
      console.log("Width: " + canvas.width + " Height: " + canvas.height);
      fillStyle = document.getElementById("visualizerContainer").style.background;
 
@@ -199,14 +201,7 @@
 
      // Clear Canvas for new visualizer
      function clearCanvas() {
-          $("#visualizer").remove()
-          $("#visualizerContainer").append('<canvas id = "visualizer"></canvas>')
-
-          canvas = document.getElementById("visualizer");
-          canvasContext = canvas.getContext("2d");
-          canvas.width = document.getElementById("visualizerContainer").offsetWidth;
-          canvas.height = document.getElementById("visualizerContainer").offsetHeight;
-
+         canvasContext.clearRect(0, 0, width, height);
          cancelAnimationFrame(id);
          console.log("Canvas Cleared");
      }
