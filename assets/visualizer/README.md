@@ -3,15 +3,16 @@ by Alexander Miltiar
 
 INSTALLATION INSTRUCTIONS
 ----------------------------
-In your html create
-    "<div id='visualizerContainer' style='
+Create this div in the html
+
+    "id='visualizerContainer' style='
     background: [INSERT COLOR]
     width: 100%; 
     height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);'>"
+    transform: translate(-50%, -50%);'"
 
 All visualizer objects will be automatically made there.
 
