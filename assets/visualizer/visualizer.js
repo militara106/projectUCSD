@@ -29,7 +29,8 @@
      var audio = document.getElementById("audio");
      audio.crossOrigin = "anonymous";
      audio.load();
-     var audioContext = new AudioContext();
+     //  var audioContext = new AudioContext();
+     var audioContext = new(window.AudioContext || window.webkitAudioContext)();
      var src = audioContext.createMediaElementSource(audio);
      console.log("Audio: " + audio.src);
 
@@ -205,4 +206,59 @@
          cancelAnimationFrame(id);
          console.log("Canvas Cleared");
      }
+
  });
+ //  Spotify
+ window.onSpotifyWebPlaybackSDKReady = () => {
+     const token = 'BQBBwv2rZZvXAp5i9dYWWlWRLyXDkqMiBcSYgULKA23AQLL_dI3VGssgtu7Npy8cRdvUXUtuYWcN1f9UuOwmCwOFdPc693_p-ovSim8g2vJj6c16xSC3oHhp5zZrVZP4MP3w4_VGZD2h4A3qmEz5sw2xHKDTSjN56A';
+     const player = new Spotify.Player({
+         name: 'Web Playback SDK Quick Start Player',
+         getOAuthToken: cb => {
+             cb(token);
+         }
+     });
+
+     // Error handling
+     player.addListener('initialization_error', ({
+         message
+     }) => {
+         console.error(message);
+     });
+     player.addListener('authentication_error', ({
+         message
+     }) => {
+         console.error(message);
+     });
+     player.addListener('account_error', ({
+         message
+     }) => {
+         console.error(message);
+     });
+     player.addListener('playback_error', ({
+         message
+     }) => {
+         console.error(message);
+     });
+
+     // Playback status updates
+     player.addListener('player_state_changed', state => {
+         console.log(state);
+     });
+
+     // Ready
+     player.addListener('ready', ({
+         device_id
+     }) => {
+         console.log('Ready with Device ID', device_id);
+     });
+
+     // Not Ready
+     player.addListener('not_ready', ({
+         device_id
+     }) => {
+         console.log('Device ID has gone offline', device_id);
+     });
+
+     // Connect to the player!
+     player.connect();
+ };
