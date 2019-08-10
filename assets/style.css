@@ -1,6 +1,7 @@
 body {
-    background: #282828;
-    color: #3500d3;
+    background: #0c0032;
+    color: #282828;
+    text-shadow: 2px 2px 8px black;
     /* font-family: 'Lobster', cursive; */
     font-family: 'Open Sans Condensed', sans-serif;
     /* font-family: 'Amatic SC', cursive; */
@@ -13,8 +14,9 @@ body {
         "footer footer footer";
     /* grid-template-columns: 150px 1fr 150px;
     grid-template-rows: auto .98fr auto; */
-    grid-template-rows: auto 50rem auto;
+    grid-template-rows: auto 80vh auto;
     min-height: 99vh;
+    max-height: 99vh;
     margin: -.5rem;
     position: relative;
 }
@@ -22,34 +24,78 @@ body {
 .music {
     grid-area: main;
     position: absolute;
-    left: 42%;
-    top: 42%;
+    width: 100%;
+    top: 40%;
+    margin: auto;
     z-index: 2;
     color: White;
     text-align: center;
 }
 
 .topBar {
-    color: #3500d3;
-    background: #282828;
+    color: white;
+    background: linear-gradient(0deg, #190061 0%, #0c0032 20%);
     grid-area: header;
     width: inherit;
     font-size: 40px;
     padding: .5rem;
+
+
 }
 
 .bottomBar {
-    background: #282828;
+    color: #3500d3;
+    background: linear-gradient(180deg, #190061 0%, #0c0032 20%);
     grid-area: footer;
     width: inherit;
-    margin-bottom: -.5rem;
     padding: 1rem;
 }
 
 #visualizerContainer {
     background: black;
-    width: auto;
-    height: 100%;
     grid-area: main;
     z-index: 1;
+}
+
+audio {
+    margin: 0 auto;
+    display: table;
+}
+
+#buttonContainer {
+    margin: 0 auto;
+    display: table;
+}
+
+#bar:hover,
+#circle:hover,
+#round:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: auto;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active,
+.collapsible:hover {
+    background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
 }

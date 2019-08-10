@@ -58,10 +58,13 @@
      var barHeight = 5;
      var barWidth = (canvas.width / analyzer.frequencyBinCount) * 2.5;
      var x, y, x2, y2;
+     var g,b;
+     var r = 0;
 
      // Create Bar Default
      clearCanvas();
      renderBarVisualizer();
+     audio.play();
 
      // Choose Bar Visualizer
      $("#bar").on("click", function () {
@@ -94,13 +97,12 @@
          for (var i = 0; i < analyzer.frequencyBinCount; i++) {
              barHeight = freqArray[i] + 5;
 
-             var b = barHeight + (25 * (i / analyzer.frequencyBinCount));
-             var g = 250 * (i / analyzer.frequencyBinCount);
-             var r = 50;
+             b = barHeight + (25 * (i / analyzer.frequencyBinCount))+50;
+             g = 250 * (i / analyzer.frequencyBinCount);
 
              canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-             canvasContext.fillRect(x, (canvas.height - barHeight * 2) / 2, barWidth, barHeight * 2);
-             canvasContext.fillRect(x2, (canvas.height - barHeight * 2) / 2, barWidth, barHeight * 2);
+             canvasContext.fillRect(x, (canvas.height - barHeight*2.5) / 2, barWidth, barHeight*2.5);
+             canvasContext.fillRect(x2, (canvas.height - barHeight*2.5) / 2, barWidth, barHeight*2.5);
 
              x += barWidth + 1;
              x2 -= barWidth + 1;
@@ -134,9 +136,9 @@
              x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
              y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
 
-             b = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             b = barHeight + (25 * (i / analyzer.frequencyBinCount))+50;
              g = 250 * (i / analyzer.frequencyBinCount);
-             r = 50;
+        
 
              canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
              canvasContext.lineWidth = barWidth;
@@ -158,9 +160,8 @@
              x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
              y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
 
-             b = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             b = barHeight + (25 * (i / analyzer.frequencyBinCount))+50;
              g = 250 * (i / analyzer.frequencyBinCount);
-             r = 50;
 
              canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
              canvasContext.lineWidth = barWidth;
@@ -184,7 +185,6 @@
          var center_y = canvas.height / 2;
          var radius = 1;
          var circles = 50;
-         var rads;
 
          canvasContext.fillStyle = fillStyle;
          canvasContext.fillRect(0, 0, canvas.width, canvas.height);
@@ -199,7 +199,6 @@
 
              b = barHeight + (25 * (i / analyzer.frequencyBinCount));
              g = 250 * (i / analyzer.frequencyBinCount);
-             r = 50;
 
              canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
              canvasContext.lineWidth = barWidth;
