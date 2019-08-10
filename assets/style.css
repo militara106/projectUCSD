@@ -1,29 +1,55 @@
-/* Global Styles that are shared between all pages */
-
 body {
-    font-family: 'Acme', sans-serif;
-    font-size: 40px;
+    background: #282828;
+    color: #3500d3;
+    /* font-family: 'Lobster', cursive; */
+    font-family: 'Open Sans Condensed', sans-serif;
+    /* font-family: 'Amatic SC', cursive; */
 }
 
-.navbar.navbar-1 .navbar-toggler-icon {
-    background-image: url('https://mdbootstrap.com/img/svg/hamburger6.svg?color=000');
-    }
-    .navbar.navbar-2 .navbar-toggler-icon {
-    background-image: url('https://mdbootstrap.com/img/svg/hamburger2.svg?color=fff');
-    }
-    .navbar.navbar-3 .navbar-toggler-icon {
-    background-image: url('https://mdbootstrap.com/img/svg/hamburger1.svg?color=6a1b9a');
-    }
-    .navbar.navbar-4 .navbar-toggler-icon {
-    background-image: url('https://mdbootstrap.com/img/svg/hamburger7.svg?color=BFE100');
-    }
-    .navbar.navbar-5 .navbar-toggler-icon {
-    background-image: url('https://mdbootstrap.com/img/svg/hamburger5.svg?color=f3e5f5');
-    }
-    .navbar.navbar-6 .navbar-toggler-icon {
-    background-image: url('https://mdbootstrap.com/img/svg/hamburger8.svg?color=E3005C');
-    }
-    .navbar.navbar-7 .navbar-toggler-icon {
-    background-image: url('https://mdbootstrap.com/img/svg/hamburger9.svg?color=FF2C00');
-    }
+.gridContainer {
+    display: grid;
+    grid-template-areas: "header header header"
+        "main main main"
+        "footer footer footer";
+    /* grid-template-columns: 150px 1fr 150px;
+    grid-template-rows: auto .98fr auto; */
+    grid-template-rows: auto 50rem auto;
+    min-height: 99vh;
+    margin: -.5rem;
+    position: relative;
+}
 
+.music {
+    grid-area: main;
+    position: absolute;
+    left: 42%;
+    top: 42%;
+    z-index: 2;
+    color: White;
+    text-align: center;
+}
+
+.topBar {
+    color: #3500d3;
+    background: #282828;
+    grid-area: header;
+    width: inherit;
+    font-size: 40px;
+    padding: .5rem;
+}
+
+.bottomBar {
+    background: #282828;
+    grid-area: footer;
+    width: inherit;
+    margin-bottom: -.5rem;
+    padding: 1rem;
+}
+
+#visualizerContainer {
+    background: black;
+    width: auto;
+    height: 100%;
+    grid-area: main;
+    z-index: 1;
+}

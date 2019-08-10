@@ -2,16 +2,16 @@
 
      // Button Variables
      var buttonContainer = $("<div>");
-     buttonContainer.css("text-align", "center");
-     buttonContainer.css("border", ".1rem solid red");
-     buttonContainer.css("border-radius", "5px");
-     buttonContainer.css("margin", "0 auto");
-     buttonContainer.css("display", "table");
-     var bar = $("<span>").attr("id", "bar").text("-BAR").css("color", "red");
-     var circle = $("<span>").attr("id", "circle").text("-CIRCLE-").css("color", "red");
-     var round = $("<span>").attr("id", "round").text("SPEAKER-").css("color", "red");
+     //  buttonContainer.css("text-align", "center");
+     //  buttonContainer.css("border", ".1rem solid red");
+     //  buttonContainer.css("border-radius", "5px");
+     //  buttonContainer.css("margin", "0 auto");
+     //  buttonContainer.css("display", "table");
+     var bar = $("<span>").attr("id", "bar").text(" BAR ");
+     var circle = $("<span>").attr("id", "circle").text(" CIRCLE ");
+     var round = $("<span>").attr("id", "round").text(" SPEAKER ");
      buttonContainer.append(bar, circle, round);
-     $("#visualizerContainer").append(buttonContainer);
+     $("#buttonContainer").append(buttonContainer);
 
      // Canvas Variables
      var canvas = $("<canvas id='visualizer'><canvas>");
@@ -33,6 +33,18 @@
      var audioContext = new(window.AudioContext || window.webkitAudioContext)();
      var src = audioContext.createMediaElementSource(audio);
      console.log("Audio: " + audio.src);
+
+     //  Song Changer
+     $(".song").on("click", function () {
+         audio.src = $(this).attr("data-src");
+         var title = $(this).attr("data-name");
+         var author = $(this).attr("data-author");
+         $(".title").text(title);
+         $(".author").text(author);
+         $("#audio").attr("src",audio.src);
+         audio.play();
+         console.log("song clicked: "+title+" "+author);
+     });
 
      // Analyzer Variables
      var id;
@@ -82,9 +94,9 @@
          for (var i = 0; i < analyzer.frequencyBinCount; i++) {
              barHeight = freqArray[i] + 5;
 
-             var r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             var b = barHeight + (25 * (i / analyzer.frequencyBinCount));
              var g = 250 * (i / analyzer.frequencyBinCount);
-             var b = 50;
+             var r = 50;
 
              canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
              canvasContext.fillRect(x, (canvas.height - barHeight * 2) / 2, barWidth, barHeight * 2);
@@ -93,7 +105,7 @@
              x += barWidth + 1;
              x2 -= barWidth + 1;
          }
-         console.log("Bar Visualizer Created");
+         console.log("Bar Visualizer Animating");
 
      }
 
@@ -122,9 +134,9 @@
              x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
              y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
 
-             r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             b = barHeight + (25 * (i / analyzer.frequencyBinCount));
              g = 250 * (i / analyzer.frequencyBinCount);
-             b = 50;
+             r = 50;
 
              canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
              canvasContext.lineWidth = barWidth;
@@ -146,9 +158,9 @@
              x2 = center_x + Math.cos(rads * i) * (radius + barHeight);
              y2 = center_y + Math.sin(rads * i) * (radius + barHeight);
 
-             r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             b = barHeight + (25 * (i / analyzer.frequencyBinCount));
              g = 250 * (i / analyzer.frequencyBinCount);
-             b = 50;
+             r = 50;
 
              canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
              canvasContext.lineWidth = barWidth;
@@ -159,7 +171,7 @@
 
          }
 
-         console.log("Circle Visualizer Created");
+         console.log("Circle Visualizer Animating");
      }
 
      //Round Visualizer
@@ -185,9 +197,9 @@
              barHeight = freqArray[i];
              radius = freqArray[i];
 
-             r = barHeight + (25 * (i / analyzer.frequencyBinCount));
+             b = barHeight + (25 * (i / analyzer.frequencyBinCount));
              g = 250 * (i / analyzer.frequencyBinCount);
-             b = 50;
+             r = 50;
 
              canvasContext.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
              canvasContext.lineWidth = barWidth;
@@ -197,7 +209,7 @@
 
 
          }
-         console.log("Round Visualizer Created");
+         console.log("Round Visualizer Animating");
      }
 
      // Clear Canvas for new visualizer
@@ -208,9 +220,10 @@
      }
 
  });
+
  //  Spotify
  window.onSpotifyWebPlaybackSDKReady = () => {
-     const token = 'BQBBwv2rZZvXAp5i9dYWWlWRLyXDkqMiBcSYgULKA23AQLL_dI3VGssgtu7Npy8cRdvUXUtuYWcN1f9UuOwmCwOFdPc693_p-ovSim8g2vJj6c16xSC3oHhp5zZrVZP4MP3w4_VGZD2h4A3qmEz5sw2xHKDTSjN56A';
+     const token = 'BQCxEhsMhNqlUI8vTv0LzBkcjq298B70Q9hdYTHZu3nrZEimR6FphK6tBouDw-bdlWpnMsod_Z78DbyguTlGpaIbv1nMjcyPWnJOBbaDpId3AFzr7cae87IdpQ-80_De7ted6rEF7avWdeo1BjDSUeDX-eF3aDFdcg';
      const player = new Spotify.Player({
          name: 'Web Playback SDK Quick Start Player',
          getOAuthToken: cb => {
